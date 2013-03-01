@@ -1,0 +1,21 @@
+=	LR	1	OPS
+\approx	LR	1	OPS
+\neq	LR	1	OPS
+<	LR	1	OPU
+>	LR	1	OPU
+\geq	LR	1	OPU
+\leq	LR	1	OPU
+
++	LR	2	OPS
+-	LR	2	OPU
+
+
+
+*	LR	5	OPS
+/	LR	5	OPU
+
+\cdot	LR	5	OPS
+\times	LR	5	OPS
+\div	LR	5	OPU
+
+^	LR	6	OPU

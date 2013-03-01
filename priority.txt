@@ -1,0 +1,29 @@
+=	LR	1	OPS
+\approx	LR	1	OPS
+\neq	LR	1	OPS
+<	LR	1	OPU
+>	LR	1	OPU
+\geq	LR	1	OPU
+\leq	LR	1	OPU
+
++	LR	2	OPS
+-	LR	2	OPU
+
+\LINK	LR	3	OPU
+
+\sum	UD	4	OPU
+\int	UD	4	OPU
+\oint	UD	4	OPU
+\prod	UD	4	OPU
+\coprod	UD	4	OPU
+\sqrt	UD	4	OPU
+
+*	LR	5	OPS
+\cdot	LR	5	OPS
+\times	LR	5	OPS
+/	LR	5	OPU
+\div	LR	5	OPU
+\frac	UD	5	OPU
+\over	LR	5	OPU
+
+^	LR	6	OPU

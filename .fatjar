@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri Mar 23 14:59:22 CST 2012
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=antlrTest_fat.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=jkl.jar
+excludes=
+includes=
