@@ -324,7 +324,7 @@ public class PreTree {
 		PreTree pt = new PreTree();
 		ntree.treeini();
 		//排序连续的OPS运算符
-		tree = pt.sortSameOps(tree);
+		ntree = pt.sortContiOps(tree);
 		//结构归一化
 		ntree = pt.treeProc(ntree);
 		return ntree;
@@ -369,7 +369,7 @@ public class PreTree {
 	}
 
 	//预处理：对连续OPS运算符的子树排序，最终按字典顺序排列
-	private MathNode sortSameOps(MathNode tree) {
+/*	private MathNode sortSameOps(MathNode tree) {
 		// TODO Auto-generated method stub
 		//针对连续可交换运算符的情况，先对这些运算符下的子树排序，使其按字典顺序排列
 
@@ -389,7 +389,7 @@ public class PreTree {
 		}
 		return tree;
 
-	}
+	}*/
 
 	//结构归一化：先序遍历对比两棵子树对应位置元素的大小，若为true则表示需要产生交换
 	public boolean compTree(MathNode a, MathNode b)
@@ -640,7 +640,86 @@ public class PreTree {
 		}
 	}
 
+	private static MathNode sortContiOps(MathNode tree) {
+		// TODO Auto-generated method stub
 
+		List<MathNode> rootlist = new ArrayList<MathNode>();
+		//		List<MathNode> leaflist = new ArrayList<MathNode>();
+
+		if (tree.type == Type.OPS && tree.level > 2 && tree.LNode != null && tree.RNode != null){
+			//将相同的OPS符号存入rootlist列表中
+			MathNode mn = new MathNode();
+			mn = tree;
+			MathNode tmpl = new MathNode();
+			tmpl = mn.LNode;
+			//根结点的左结点
+			rootlist.add(tmpl);
+			//寻找连续的相同符号结点
+			while(mn.RNode.data == tree.data)
+			{
+				System.out.println(mn.level);
+				mn = mn.RNode;
+				System.out.println(mn.level);
+				MathNode temp = new MathNode();
+				temp = mn.LNode;
+				rootlist.add(temp);
+			}
+			//最后一个相同符号的右结点
+			MathNode temp = new MathNode();
+			temp = mn.RNode;
+			rootlist.add(temp);
+		}
+		if(rootlist.size() > 0)
+		{
+			MathNode mn = new MathNode();
+			mn = tree;
+			int total = rootlist.size();
+			for(int i = 0; i < total-1; i++)
+			{
+				String data = rootlist.get(0).data;
+				int index = 0;
+				//找到最小层数的结点
+				for(int j = 0; j < rootlist.size(); j++)
+				{
+					if(data.compareTo(rootlist.get(j).data) > 0)
+					{
+						index = j;
+						data = rootlist.get(j).data;
+					}
+				}
+				//确定左结点
+				mn.LNode = rootlist.get(index);
+				tree = setChild(tree,mn,i);
+				rootlist.remove(index);
+				//移动到下一个符号,第total-2个是最后一个相同的符号结点，跳出
+				if(i < total-2)
+					mn = mn.RNode;
+			}
+			mn.RNode = rootlist.get(0);
+			tree = setChild(tree,mn,total-2);
+			tree.treeini();
+			rootlist.clear();
+		}
+		//	leaflist.clear();
+		if (tree.LNode != null && tree.LNode.level > 2)
+			tree.LNode = sortContiOps(tree.LNode);
+		if (tree.RNode != null && tree.RNode.level > 2)
+			tree.RNode = sortContiOps(tree.RNode);
+		return tree;
+	}
+
+	private static MathNode setChild(MathNode tree, MathNode mn, int depth) {
+		// TODO Auto-generated method stub
+		if(depth > 0)
+		{
+			tree.RNode = setChild(tree.RNode, mn, depth-1);
+		}
+		else if(depth == 0)
+		{
+			tree = mn;
+		}
+		return tree;
+	}
 
 
 	public static void main(String [] args)
